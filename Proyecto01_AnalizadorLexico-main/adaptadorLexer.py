@@ -44,7 +44,7 @@ class Token:
         elif self.tipo == 'num':
             self.type = 'NUM'
         elif self.tipo == 'decimal':
-            self.type == 'DECIMAL'
+            self.type = 'DECIMAL'
         elif self.tipo == 'Salto':
             self.type = CP.get(lexema, 'CP')
         elif self.tipo == 'comp':
