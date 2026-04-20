@@ -90,9 +90,13 @@ def p_s_l(p):
     # def es una estructura de bloque → sin 'nl' al final.
     "s : l"
     p[0] = p[1]
- 
+
 def p_s_call(p):
     "s : ID LPAREN o RPAREN nl"
+    p[0] = ('call', p[1], p[3])
+
+def p_s_call_inline(p):
+    "s : ID LPAREN o RPAREN"
     p[0] = ('call', p[1], p[3])
 
 #Producciones de C
@@ -124,6 +128,14 @@ def p_b_elif(p):
 def p_b_else(p):
     "b : ELSE c"
     p[0] = ('else', p[2])
+
+def p_b_else_nl(p):
+    "b : nl ELSE c"          # ← absorbe el NEWLINE antes del else
+    p[0] = ('else', p[3])
+
+def p_b_elif_nl(p):
+    "b : nl ELIF LPAREN a RPAREN c b"   # ← absorbe el NEWLINE antes del elif
+    p[0] = ('elif', p[3], p[5], p[6])
  
 def p_b_empty(p):
     "b : empty"
@@ -282,6 +294,14 @@ def p_k_decl(p):
     "k : j ID ASSIGN e"
     p[0] = ('decl', p[1], p[2], p[4])
 
+def p_k_inc(p):
+    "k : ID INC"
+    p[0] = ('inc', p[1])
+
+def p_k_dec(p):
+    "k : ID DEC"
+    p[0] = ('dec', p[1])
+
 #L - Definición de función
 def p_l(p):
     "l : DEF ID LPAREN m RPAREN c"
@@ -329,24 +349,26 @@ def p_empty(p):
 #Errorsito
 def p_s_error_nl(p):
     "s : error nl"
-    #Error seguido de salto de línea → sentencia inválida, continuamos.
-    print(f"Recuperado: se descartó la sentencia errónea.")
+    print(f"  Recuperado: se descartó la sentencia errónea.")
     p[0] = None
     p.parser.errok()
- 
-def p_s_error_eof(p):
-    "s : error"
-    #Error en EOF o sin NEWLINE posterior → recuperamos igual.
-    print(f"Recuperado al final del archivo.")
-    p[0] = None
-    p.parser.errok()
- 
+
 def p_error(token):
     if token is None:
-        #EOF inesperado.
         print("Error sintáctico: fin de archivo inesperado.")
         return
     print(f"Error sintáctico en la línea {token.lineno}: token inesperado '{token.value}' ({token.type})")
+    
+    # Descartar tokens hasta encontrar un NEWLINE o RBRACE como punto seguro
+    while True:
+        tok = token.parser.token()
+        if tok is None:
+            break
+        if tok.type in ('NEWLINE', 'RBRACE'):
+            token.parser.restart()
+            token.lexer.reinsert(tok)  #devuelve el token a la cola
+            break
+
 
 pi = yacc.yacc(start="sprime")
 
