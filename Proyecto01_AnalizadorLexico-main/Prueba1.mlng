@@ -1,0 +1,4 @@
+if(x > 0 and x < 10) {print(x)}
+if(x == 0 or x == 1) {print(x)}
+
+while(ú > 2) {print(r)}

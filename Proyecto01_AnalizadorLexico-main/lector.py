@@ -12,5 +12,5 @@ class Lector:
                 self.lineasArchivo = archivo.read() 
             return self.lineasArchivo
         except:
-            print("Pasas que cosas:]")
+            print("Archivo no encontrado. Verifique que este en la direccion correcta.")
             return None

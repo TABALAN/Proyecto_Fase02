@@ -5,7 +5,7 @@ from parser import parserin
 
 def main():
     #Etapa 1: Analizador Léxico
-    archivo = "text1.txt"
+    archivo = "Prueba1.mlng"
     print("------- Analizador Lexico -------")
     lec = Lexer()
     lec.leerArchivo(archivo)

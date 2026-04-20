@@ -202,7 +202,7 @@ class Lexer:
                         columna += 1
                         i += 1
                     # Marcar como error
-                    self.errores.append({
+                    self.tokens.append({
                         "lexema": lexema,
                         "tipo": "ERROR",
                         "linea": linea,
@@ -256,7 +256,7 @@ class Lexer:
                     "identacion": identacion
                 })
             else:
-                self.errores.append({
+                self.tokens.append({
                     "lexema": lexema,
                     "tipo": "ERROR",
                     "linea": linea,
@@ -277,7 +277,7 @@ class Lexer:
                     "identacion": identacion
                 })
             else:
-                self.errores.append({
+                self.tokens.append({
                     "lexema": lexema,
                     "tipo": "ERROR",
                     "linea": linea,
@@ -371,7 +371,7 @@ class Lexer:
             })
         #No es nada XD
         else:
-            self.errores.append({
+            self.tokens.append({
                 "lexema": c,
                 "tipo": "Error",
                 "linea": linea,
@@ -420,7 +420,7 @@ class Lexer:
                             comparador += lexema[i]
                             i += 1
                         
-                        self.errores.append({
+                        self.tokens.append({
                             "lexema": comparador,
                             "tipo": "ERROR",
                             "linea": linea,
@@ -441,7 +441,7 @@ class Lexer:
                         })
                         i += 1 #Aumentar para que comience correctamente
                     else:
-                        self.errores.append({
+                        self.tokens.append({
                             "lexema": comparador,
                             "tipo": "ERROR",
                             "linea": linea,
@@ -477,7 +477,7 @@ class Lexer:
                             })
                             i += 1 #Aumentar para que comience correctamente
                         else:
-                            self.errores.append({
+                            self.tokens.append({
                                 "lexema": comparador,
                                 "tipo": "ERROR",
                                 "linea": linea,
@@ -629,7 +629,7 @@ class Lexer:
         # Validar que no sea número inválido (empieza con 0 o tiene letras después de números)
         if sublexema and sublexema[0].isdigit():
             if sublexema[0] == '0' and len(sublexema) > 1 and sublexema[1].isdigit():
-                self.errores.append({
+                self.tokens.append({
                     "lexema": sublexema,
                     "tipo": "ERROR",
                     "linea": linea,
@@ -640,7 +640,7 @@ class Lexer:
                 return
             # Si empieza con número pero tiene letras, es error
             if any(c.isalpha() for c in sublexema):
-                self.errores.append({
+                self.tokens.append({
                     "lexema": sublexema,
                     "tipo": "ERROR",
                     "linea": linea,
@@ -652,7 +652,7 @@ class Lexer:
             
         # Validar longitud de identificador (truncar si es mayor a 31)
         if len(sublexema) > 31 and re.match(r"^[A-Za-z0-9_]", sublexema):
-            self.errores.append({
+            self.tokens.append({
                 "lexema": sublexema[:31],  # Truncar a 31 caracteres
                 "tipo": "ERROR",
                 "linea": linea,
@@ -695,7 +695,7 @@ class Lexer:
                 "identacion": identacion
             })
         else:
-            self.errores.append({
+            self.tokens.append({
                 "lexema": sublexema,
                 "tipo": "ERROR",
                 "linea": linea,
@@ -711,10 +711,10 @@ class Lexer:
             for token in self.tokens:
                 print(f"Lexema - {token['lexema']}, tipo - {token['tipo']}, linea - {token['linea']}, columna - {token['columna']}, identacion - {token['identacion']}")
 
-        if len(self.errores) != 0:
+        '''if len(self.errores) != 0:
             print("\nErrores capturados:")
             for token in self.errores:
-                print(f"Lexema - {token['lexema']}, tipo - {token['tipo']}, linea - {token['linea']}, columna - {token['columna']}, identacion - {token['identacion']}")
+                print(f"Lexema - {token['lexema']}, tipo - {token['tipo']}, linea - {token['linea']}, columna - {token['columna']}, identacion - {token['identacion']}")'''
 
 
     def getTokens(self):
