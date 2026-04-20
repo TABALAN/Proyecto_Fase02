@@ -1,0 +1,89 @@
+int r = 12
+
+float pi = 3.14
+x = 5
+int z = x + 3 * 2
+int y = (x + 1) * 2
+
+if(x > 0) {print(x)}
+
+if(x > 0) {
+print(x)
+}
+
+if(x > 0) {print(x)}
+else {print(r)}
+
+if(x > 0) {print(x)}
+elif(x == 0) {print(r)}
+else {print(z)}
+
+if(x > 0 and x < 10) {print(x)}
+
+if(x == 0 or x == 1) {print(x)}
+
+while(r > 2) {print(r)}
+
+
+while(r > 2) {
+print(r)
+}
+
+for(int i = 0; i < 10; i++) {print(i)}
+
+for(int i = 0; i < 5; i = i + 1) {print(i)}
+
+def miFuncion() {
+print(x)
+}
+
+def suma(a, b) {
+return a + b
+}
+miFuncion()
+
+suma(3, x)
+
+int r = suma(1, 2) + 3
+return x + 1
+def f() {return x}
+
+int r = x % 2
+
+print("Hola mundo")
+
+x++
+
+int x = input("Dame un numero")
+
+print(x)
+
+
+if(x > 9) {
+int x = 15
+}
+
+while(x > 0) {}
+
+#Algunos errores
+int r =
+
+int int = 5
+if x > 0 {print(x)}
+
+if(x > 0)
+print(x)
+
+else {print(x)}
+
+while() {print(x)}
+
+for(int i = 0 i < 5; i++) {print(i)}
+
+def () {
+print(x)
+}
+
+int x = 5 +
+
+int x = (5 + 3
